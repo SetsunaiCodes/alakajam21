@@ -1,40 +1,64 @@
 
-
-
 function love.load()
     wf = require 'libraries/windfield'
+    sti = require 'libraries/sti'
+    camera = require 'libraries/camera'
+
+
+    scaler = 2
+    tileSize = 16
+
+    
+    cam = camera()
 
     world = wf.newWorld(0, 500)
-    player = world:newRectangleCollider(350, 100, 80, 80)
+    gameMap = sti('assets/maps/testing.lua')
 
 
-    ground = world:newRectangleCollider(100, 400, 600, 100)
-    ground:setType('static')
+    player = world:newRectangleCollider(350, 100, tileSize * scaler, tileSize * scaler)
 
+
+    -- Load Collisions
+    local collisionLayer = gameMap.layers["Collisions"]
+    if collisionLayer and collisionLayer.objects then
+        for i, obj in ipairs(collisionLayer.objects) do
+            ground = world:newRectangleCollider(obj.x * scaler, obj.y * scaler, obj.width * scaler, obj.height * scaler)
+            ground:setType('static')
+        end
+    else
+        print("Kein Collisions-Layer oder keine Objekte gefunden!")
+    end
 end
 
 
 function love.update(dt)
 
-    if love.keyboard.isDown('a') then
-        player:applyForce(-5000, 0)
-        
-    elseif love.keyboard.isDown('d') then
-        player:applyForce(5000, 0)
-    end
+    local playerX, playerY = player:getX(), player:getY() 
 
     world:update(dt)
 
+
+
+    cam:lookAt(playerX, playerY)
 end
 
 
 function love.draw()
-    world:draw()
-end
+    cam:attach()
+        love.graphics.push()
+        love.graphics.scale(scaler,scaler)
+
+        -- HIER MUSS JEDER LAYER EINZELN GEDRAWED WERDEN (Natürlich ohne Collisions)
+        gameMap:drawLayer(gameMap.layers["Tiles"],0,0)
+
+        love.graphics.pop()
 
 
-function love.keypressed(key)
-    if key == 'w' then
-        player:applyLinearImpulse(0, -5000)
-    end
+        -- Physics World Linien
+        world:draw()
+
+        --  DIE ISSUES MIT DEM SCALER UND DEN PHYSICS ANGEHEN
+
+    cam:detach()
+
 end
