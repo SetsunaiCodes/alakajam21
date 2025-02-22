@@ -2,9 +2,11 @@
 function love.load()
     wf = require 'libraries/windfield'
     sti = require 'libraries/sti'
+    anim8 = require 'libraries/anim8'
     camera = require 'libraries/camera'
+    Player = require 'player'
 
-
+ 
     scaler = 2
     tileSize = 16
 
@@ -12,10 +14,14 @@ function love.load()
     cam = camera()
 
     world = wf.newWorld(0, 500)
+
+    world:addCollisionClass("Ground")
+
     gameMap = sti('assets/maps/testing.lua')
 
 
-    player = world:newRectangleCollider(350, 100, tileSize * scaler, tileSize * scaler)
+    -- Player als Objekt erzeugen
+    player = Player:new(world, 350, 100, tileSize * scaler, tileSize * scaler)
 
 
     -- Load Collisions
@@ -24,6 +30,7 @@ function love.load()
         for i, obj in ipairs(collisionLayer.objects) do
             ground = world:newRectangleCollider(obj.x * scaler, obj.y * scaler, obj.width * scaler, obj.height * scaler)
             ground:setType('static')
+            ground:setCollisionClass("Ground")
         end
     else
         print("Kein Collisions-Layer oder keine Objekte gefunden!")
@@ -33,10 +40,10 @@ end
 
 function love.update(dt)
 
-    local playerX, playerY = player:getX(), player:getY() 
+    local playerX, playerY = player:getPosition() 
 
     world:update(dt)
-
+    player:update(dt)
 
 
     cam:lookAt(playerX, playerY)
@@ -56,6 +63,11 @@ function love.draw()
 
         -- Physics World Linien
         world:draw()
+
+
+        love.graphics.setDefaultFilter("nearest", "nearest")
+        -- Player drawen
+        player:draw()
 
         --  DIE ISSUES MIT DEM SCALER UND DEN PHYSICS ANGEHEN
 
