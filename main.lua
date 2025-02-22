@@ -65,7 +65,6 @@ function love.draw()
         world:draw()
 
 
-        love.graphics.setDefaultFilter("nearest", "nearest")
         -- Player drawen
         player:draw()
 

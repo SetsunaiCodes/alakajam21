@@ -7,6 +7,7 @@ function Player:new(world, x, y, width, height)
     self.jumpForce = -300 --JumpHeight
     self.isGrounded = false
 
+    love.graphics.setDefaultFilter("nearest", "nearest")
     self.spriteSheet = love.graphics.newImage('assets/spritesheets/player.png')
     self.grid = anim8.newGrid(tileSize, tileSize, self.spriteSheet:getWidth(), self.spriteSheet:getHeight())
 
@@ -69,7 +70,6 @@ function Player:update(dt)
 end
 
 function Player:draw()
-    -- Falls du spezielle Zeichnungen für den Player möchtest, hier einfügen
     self.anim:draw(self.spriteSheet, self.collider:getX()-tileSize, self.collider:getY()-tileSize, nil, scaler, scaler)
 end
 

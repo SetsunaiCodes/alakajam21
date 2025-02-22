@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 3,
-  nextobjectid = 3,
+  nextobjectid = 5,
   properties = {},
   tilesets = {
     {
@@ -41,6 +41,35 @@ return {
       wangsets = {},
       tilecount = 9,
       tiles = {}
+    },
+    {
+      name = "Tilemap1",
+      firstgid = 10,
+      class = "",
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 5,
+      image = "../tilesets/Tilemap1.png",
+      imagewidth = 80,
+      imageheight = 80,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16,
+        height = 16
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 25,
+      tiles = {}
     }
   },
   layers = {
@@ -67,13 +96,13 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 6, 0,
-        0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 0, 0, 7, 8, 9, 0,
-        0, 0, 0, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 11, 11, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 16, 17, 18, 19,
+        0, 0, 0, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 0, 0, 20, 21, 22, 23, 19,
+        0, 0, 20, 16, 17, 17, 17, 17, 17, 17, 17, 17, 18, 19, 0, 20, 26, 27, 28, 19,
+        0, 0, 20, 21, 22, 22, 22, 22, 22, 22, 22, 22, 23, 19, 0, 0, 32, 32, 32, 0,
+        0, 0, 20, 26, 27, 27, 27, 27, 27, 27, 27, 27, 28, 19, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 0, 0, 0, 0, 0, 0, 0
       }
     },
     {
@@ -105,6 +134,32 @@ return {
         },
         {
           id = 2,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 256,
+          y = 96,
+          width = 48,
+          height = 48,
+          rotation = 0,
+          visible = false,
+          properties = {}
+        },
+        {
+          id = 3,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 48,
+          y = 128,
+          width = 160,
+          height = 48,
+          rotation = 0,
+          visible = false,
+          properties = {}
+        },
+        {
+          id = 4,
           name = "",
           type = "",
           shape = "rectangle",
