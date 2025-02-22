@@ -11,6 +11,7 @@ function Player:new(world, x, y, width, height)
     self.spriteSheet = love.graphics.newImage('assets/spritesheets/player.png')
     self.grid = anim8.newGrid(tileSize, tileSize, self.spriteSheet:getWidth(), self.spriteSheet:getHeight())
 
+
     self.animations = {}
     self.animations.idle = anim8.newAnimation(self.grid('1-2', 1), 0.5 ) -- Update 0.5 for faster animations
     self.animations.walk = anim8.newAnimation(self.grid('1-4', 2), 0.5 ) -- Update 0.5 for faster animations
@@ -21,6 +22,7 @@ function Player:new(world, x, y, width, height)
 
     self.collider = world:newRectangleCollider(x, y, width, height)
     self.collider:setFixedRotation(true) -- verhindert, dass der Player fällt
+    self.collider:setCollisionClass('Player') -- Spezielle Kollisionklasse für den Player
     self.collider:setRestitution(0) -- kein Bouncen
 
     return self
@@ -43,7 +45,7 @@ function Player:update(dt)
         self.anim = self.animations.walk
     else
         vx = 0 -- Stoppt den Player hardcut, wenn gerade nichts gedrückt, dann rutscht der nicht mehr
-
+    
     end
 
 

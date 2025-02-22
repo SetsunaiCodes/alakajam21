@@ -5,6 +5,8 @@ function love.load()
     anim8 = require 'libraries/anim8'
     camera = require 'libraries/camera'
     Player = require 'player'
+    Enemy = require 'enemy'
+    GravitySwitch = require 'gravitySwitch'
 
  
     scaler = 2
@@ -16,6 +18,11 @@ function love.load()
     world = wf.newWorld(0, 500)
 
     world:addCollisionClass("Ground")
+    world:addCollisionClass("Enemy")
+    world:addCollisionClass("Player")
+    world:addCollisionClass("Switch")
+
+
 
     gameMap = sti('assets/maps/testing.lua')
 
@@ -23,6 +30,18 @@ function love.load()
     -- Player als Objekt erzeugen
     player = Player:new(world, 350, 100, tileSize * scaler, tileSize * scaler)
 
+
+    -- Testing Enemy erzeugen
+    -- enemy = Enemy:new(world, 400, 100, 20, 20)
+
+    -- Testing Switch erzeugen
+    local gravityLayer = gameMap.layers["Switch"]
+    if gravityLayer and gravityLayer.objects then
+        for i, obj in ipairs(gravityLayer.objects) do
+            gravitySwitch = GravitySwitch:new(world, (obj.x - tileSize) * scaler, (obj.y - tileSize) * scaler, tileSize * scaler, tileSize * scaler)
+
+        end
+    end
 
     -- Load Collisions
     local collisionLayer = gameMap.layers["Collisions"]
@@ -35,6 +54,9 @@ function love.load()
     else
         print("Kein Collisions-Layer oder keine Objekte gefunden!")
     end
+
+
+
 end
 
 
@@ -44,6 +66,11 @@ function love.update(dt)
 
     world:update(dt)
     player:update(dt)
+    gravitySwitch:update(player)   
+
+
+    
+    
 
 
     cam:lookAt(playerX, playerY)
@@ -62,11 +89,15 @@ function love.draw()
 
 
         -- Physics World Linien
-        world:draw()
+        -- world:draw()
 
 
         -- Player drawen
         player:draw()
+        -- Draw GravitySwitch
+        gravitySwitch:draw()
+
+        
 
         --  DIE ISSUES MIT DEM SCALER UND DEN PHYSICS ANGEHEN
 
